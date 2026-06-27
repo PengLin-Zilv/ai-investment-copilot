@@ -1,0 +1,221 @@
+<style>
+  :root { color-scheme:light!important; }
+  html,body { background:#f4f6f9!important;color:#172033!important; }
+  h1,h2,h3,h4,p,li,strong,small,.label,.subtitle,.mockup-header,.mockup-body,.option,.content,th,td {
+    color:#172033!important;
+  }
+  .subtitle,small { color:#596579!important; }
+  .panel { background:#fff;border:1px solid #dce2eb;border-radius:13px;padding:18px;box-shadow:0 6px 20px rgba(25,37,64,.06); }
+  .core { border-left:6px solid #486fdd; }
+  .truth { border-left:6px solid #25815e; }
+  .warning { border-left:6px solid #cf8420; }
+  .delete { border-left:6px solid #c64d4d; }
+  table { width:100%;border-collapse:collapse;background:#fff; }
+  th,td { padding:11px 12px;border-bottom:1px solid #e0e5ed;text-align:left;vertical-align:top; }
+  th { background:#eaf0f8; }
+  .option { background:#fff!important;border-color:#cbd5e1!important; }
+  .option:hover,.option.selected { background:#edf3ff!important;border-color:#486fdd!important; }
+</style>
+
+<h2>最终收敛：Minimalist Long-Term Investment Copilot</h2>
+<p class="subtitle">去掉通用事件平台、形式化炫技和过度防御，只保留长期投资真正需要的闭环。</p>
+
+<div class="panel truth section">
+  <div class="label">FIRST PRINCIPLE</div>
+  <h3>产品唯一任务</h3>
+  <p style="font-size:18px;margin-bottom:8px"><strong>替你持续阅读持仓公司的基本面和产业背景，只在出现足以更新长期 thesis 的新证据时提醒，并按照你的投资风格解释它。</strong></p>
+  <p style="margin-bottom:0">AI 提供更好的信息压缩和思考材料；conviction 仍由你拥有，也默认保持稳定。</p>
+</div>
+
+<div class="section">
+  <h3>只有四个核心模块</h3>
+  <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px">
+    <div class="panel core">
+      <div class="label">1 · YOU</div>
+      <h3>Thesis Card</h3>
+      <p>持仓、为什么持有、时间尺度、关键驱动、证伪条件、conviction、表达偏好。</p>
+    </div>
+    <div class="panel core">
+      <div class="label">2 · REALITY</div>
+      <h3>Evidence</h3>
+      <p>财报、现金流、毛利率、资本开支、guidance、竞争格局、供需与技术周期。</p>
+    </div>
+    <div class="panel core">
+      <div class="label">3 · NECESSITY</div>
+      <h3>Rules</h3>
+      <p>判断是否新、是否重要、是否影响你的 thesis、是否值得现在打扰。</p>
+    </div>
+    <div class="panel core">
+      <div class="label">4 · INTERFACE</div>
+      <h3>Agent</h3>
+      <p>按需查资料、总结正反证据、匹配你的风格，并提出可确认的 Thesis Card diff。</p>
+    </div>
+  </div>
+</div>
+
+<div class="section">
+  <h3>什么值得进入系统</h3>
+  <table>
+    <thead><tr><th>类别</th><th>可信点</th><th>不可信点 / 使用限制</th><th>系统怎么用</th></tr></thead>
+    <tbody>
+      <tr>
+        <td><strong>正式财务事实</strong><br>10-Q / 10-K、现金流、收入、毛利率、资产负债</td>
+        <td>一手、定义相对稳定、可跨期计算</td>
+        <td>滞后、会受会计口径和一次性项目影响</td>
+        <td>作为基本面锚点；保存原值、口径和同比/环比变化</td>
+      </tr>
+      <tr>
+        <td><strong>管理层陈述与 guidance</strong></td>
+        <td>最接近公司计划、客户反馈和资本配置</td>
+        <td>有激励偏差，对未来不确定，可能改变口径</td>
+        <td>标记为 assertion / forecast；与后续兑现情况比较</td>
+      </tr>
+      <tr>
+        <td><strong>系统计算指标</strong><br>FCF margin、增速、稀释、趋势</td>
+        <td>定义透明、可重复验证</td>
+        <td>输入错或公式选错会产生精确的错误</td>
+        <td>保存公式、原始字段和计算版本</td>
+      </tr>
+      <tr>
+        <td><strong>产业与外部背景</strong><br>供需、memory 短缺、竞争、技术周期</td>
+        <td>解释数字为什么变化，以及持续性</td>
+        <td>来源口径不同、可能滞后或带立场</td>
+        <td>至少标注来源、时间和反面背景；不单独盖过公司事实</td>
+      </tr>
+      <tr>
+        <td><strong>AI / 分析师解释</strong></td>
+        <td>善于关联、压缩和提出检查方向</td>
+        <td>可能脑补、追逐叙事或使用过时范式</td>
+        <td>永远标为 interpretation，并链接它所依赖的证据</td>
+      </tr>
+      <tr>
+        <td><strong>价格与 200 日线</strong></td>
+        <td>客观、及时，能反映市场状态变化</td>
+        <td>不能证明基本面改变，假突破很多</td>
+        <td>收盘确认后作为独立技术信号；不自动改变 thesis</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="mockup section" style="background:#fff">
+  <div class="mockup-header" style="background:#e8eef8"><strong>关键分离：事实不迎合你，解释必须懂你</strong></div>
+  <div class="mockup-body">
+    <div style="display:grid;grid-template-columns:1fr auto 1fr auto 1fr;gap:12px;align-items:center;text-align:center">
+      <div class="panel">
+        <strong>Evidence Verdict</strong><br>
+        这条证据是什么、可靠到什么程度<br>
+        <small>完全不看你的 conviction</small>
+      </div>
+      <div style="font-size:26px;color:#657187">→</div>
+      <div class="panel warning">
+        <strong>Personal Relevance</strong><br>
+        它是否触及你的 thesis、时间尺度或证伪条件<br>
+        <small>在这里才读取你的 style 与 conviction</small>
+      </div>
+      <div style="font-size:26px;color:#657187">→</div>
+      <div class="panel">
+        <strong>Aligned Explanation</strong><br>
+        告诉你支持、削弱与未知是什么<br>
+        <small>不反复劝你，不代替你改变 conviction</small>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="section">
+  <h3>长期投资过滤器</h3>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px">
+    <div class="panel truth">
+      <h3>保留</h3>
+      <ul>
+        <li>财报和关键指标的趋势、质量与持续性</li>
+        <li>现金流、利润率、稀释、债务和资本配置</li>
+        <li>管理层执行力与 guidance 兑现</li>
+        <li>产品、竞争优势、客户、供需和技术周期</li>
+        <li>可能真正证实或证伪长期 thesis 的重大变化</li>
+        <li>收盘确认的 200 日线信号</li>
+      </ul>
+    </div>
+    <div class="panel delete">
+      <h3>默认过滤</h3>
+      <ul>
+        <li>分析师评级、目标价、日常媒体情绪</li>
+        <li>普通涨跌、社交媒体争论和重复新闻</li>
+        <li>常规投票、会议流程和行政事项</li>
+        <li>与长期经济性无关的公司动态</li>
+        <li>只因为“新闻很多”而产生的提醒</li>
+      </ul>
+      <small>例外：若投票会改变控制权、稀释、并购或资本结构，它才与长期 thesis 有关。</small>
+    </div>
+  </div>
+</div>
+
+<div class="section">
+  <h3>提醒规则：简单到可以解释</h3>
+  <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px">
+    <div class="panel">
+      <strong>1 · Is it new?</strong><br>
+      相比上次已知状态是否真正变化；重复事件直接沉默。
+    </div>
+    <div class="panel">
+      <strong>2 · Does it matter?</strong><br>
+      是否影响长期驱动、证伪条件、财务质量或极端底线。
+    </div>
+    <div class="panel">
+      <strong>3 · Is interruption necessary?</strong><br>
+      重大 thesis 风险即时；其他有价值内容进入每日摘要；无事不发。
+    </div>
+  </div>
+</div>
+
+<div class="panel warning section">
+  <h3 style="margin-top:0">Agent 如何“聪明但不奇怪”</h3>
+  <p>每次任务只组装最小上下文：当前问题、相关持仓的 Thesis Card、必要证据和少量风格偏好。不反复发送完整组合、全部历史或无关记忆。</p>
+  <p style="margin-bottom:0">同一反对理由没有新证据时不重复劝说；只有出现新的、material 的 thesis 证据，才重新提出“加深 / 减弱 / 保持不变”的 reference。</p>
+</div>
+
+<div class="section">
+  <h3>开发路线也极简</h3>
+  <div style="display:grid;grid-template-columns:1fr auto 1fr auto 1fr;gap:12px;align-items:stretch">
+    <div class="panel core">
+      <div class="label">A · BUILD</div>
+      <h3>MVP</h3>
+      <p>持仓与 Thesis Card、财报/行情获取、类型化证据、三步提醒规则、Discord、手动问答。</p>
+    </div>
+    <div style="display:flex;align-items:center;font-size:26px;color:#657187">→</div>
+    <div class="panel truth">
+      <div class="label">B · VERIFY & DEPLOY</div>
+      <h3>Tests → Launch</h3>
+      <p>规则单测、历史样例、集成测试、数据中断与警告 loop 通过后直接云端上线。不强制等待 30 天。</p>
+    </div>
+    <div style="display:flex;align-items:center;font-size:26px;color:#657187">→</div>
+    <div class="panel warning">
+      <div class="label">C · EXPLORE ONLY IF EARNED</div>
+      <h3>Optional Intelligence</h3>
+      <p>当简单规则无法表达跨期、跨实体证据时，做 PyReason spike；只有测试证明更有用才加入。pgvector、Telegram 同理。</p>
+    </div>
+  </div>
+</div>
+
+<div class="panel delete section">
+  <h3 style="margin-top:0">明确删除</h3>
+  <p style="margin-bottom:0">不做通用事件平台、不做多 Agent、不做全市场扫描、不做自动交易、不做自动 conviction、不为了“Neurosymbolic”标签硬塞 PyReason、不为了隐私表演增加复杂系统。</p>
+</div>
+
+<div class="options">
+  <div class="option" data-choice="approve-minimalist-core" onclick="toggleSelect(this)">
+    <div class="letter">✓</div>
+    <div class="content">
+      <h3>认可这个极简主干</h3>
+      <p>下一步只设计 MVP 的具体数据流、Thesis Card 和提醒规则。</p>
+    </div>
+  </div>
+  <div class="option" data-choice="trim-minimalist-core" onclick="toggleSelect(this)">
+    <div class="letter">−</div>
+    <div class="content">
+      <h3>还可以继续删</h3>
+      <p>告诉我哪个部分仍然花里胡哨或偏离长期投资。</p>
+    </div>
+  </div>
+</div>

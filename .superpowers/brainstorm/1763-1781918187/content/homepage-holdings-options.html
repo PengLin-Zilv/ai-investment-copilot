@@ -1,0 +1,103 @@
+<style>
+  :root { color-scheme:light!important; }
+  html,body { background:#eef1f6!important;color:#111827!important; }
+  h1,h2,h3,h4,p,span,strong,small,.label,.subtitle,.option,.content { color:#111827!important; }
+  .subtitle,small,.muted { color:#6b7280!important; }
+  .cards { display:grid!important;grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:18px!important;align-items:start!important; }
+  .card { background:#fff!important;border:1px solid #d8dee9!important;border-radius:18px!important;overflow:hidden!important;box-shadow:0 12px 30px rgba(23,32,51,.08)!important; }
+  .card:hover,.card.selected { border-color:#6d5dfc!important;box-shadow:0 14px 36px rgba(89,73,229,.18)!important; }
+  .screen { min-height:520px;background:#090b12;border-radius:13px;padding:20px;color:#f8fafc!important;position:relative;overflow:hidden; }
+  .screen * { color:#f8fafc!important;box-sizing:border-box; }
+  .screen .dim { color:#8c93a5!important; }
+  .screen .soft { color:#b9bfcc!important; }
+  .topbar { display:flex;justify-content:space-between;align-items:center;margin-bottom:32px;font-size:12px; }
+  .logo { font-weight:700;letter-spacing:.08em; }
+  .status-dot { width:7px;height:7px;border-radius:50%;background:#61d69e;display:inline-block;margin-right:6px;box-shadow:0 0 12px #61d69e; }
+  .headline { font-size:25px;line-height:1.2;font-weight:600;letter-spacing:-.03em;margin-bottom:8px; }
+  .subline { font-size:13px;color:#9aa2b3!important;line-height:1.5; }
+  .event { margin-top:24px;padding:14px;border:1px solid #242938;border-radius:12px;background:#11141d; }
+  .event-title { font-size:13px;font-weight:600;margin-bottom:6px; }
+  .event-copy { font-size:11px;color:#aeb5c4!important;line-height:1.55; }
+  .chat { position:absolute;left:20px;right:20px;bottom:20px;border:1px solid #303647;background:#141821;border-radius:14px;padding:14px;font-size:12px;color:#8f98aa!important; }
+  .holdings-strip { display:flex;gap:8px;margin-top:22px;overflow:hidden; }
+  .holding-chip { min-width:86px;border:1px solid #252b3a;background:#11151d;border-radius:11px;padding:10px; }
+  .holding-chip strong { display:block;font-size:12px;margin-bottom:4px; }
+  .holding-chip span { font-size:10px;color:#929bad!important; }
+  .holding-chip.signal { border-color:#6558d9;background:#17152a; }
+  .portfolio-list { margin-top:22px;border:1px solid #262c3a;border-radius:13px;overflow:hidden; }
+  .portfolio-row { display:grid;grid-template-columns:1fr auto auto;gap:9px;padding:12px;border-bottom:1px solid #232835;font-size:11px;align-items:center; }
+  .portfolio-row:last-child { border-bottom:0; }
+  .badge { border-radius:999px;padding:4px 7px;background:#242a38;color:#b7becb!important;font-size:9px; }
+  .badge.signal { background:#302b69;color:#d7d2ff!important; }
+  .mini-nav { display:flex;gap:14px;font-size:10px;color:#858da0!important; }
+  .recommend { display:inline-block;margin-left:7px;padding:3px 8px;border-radius:999px;background:#e9e5ff;color:#5948d7!important;font-size:11px;font-weight:700; }
+  .card-body { min-height:130px; }
+</style>
+
+<h2>首页要不要展示持仓？</h2>
+<p class="subtitle">三种信息密度。重点看：你打开页面时，是更轻松，还是又像在看一个需要管理的 dashboard？</p>
+
+<div class="cards">
+  <div class="card" data-choice="chat-only-home" onclick="toggleSelect(this)">
+    <div class="card-image" style="padding:12px;background:#e8ebf1">
+      <div class="screen">
+        <div class="topbar"><span class="logo">COPILOT</span><span><i class="status-dot"></i><span class="dim">Watching quietly</span></span></div>
+        <div class="headline">今天没有需要你处理的事。</div>
+        <div class="subline">你的持仓正在后台监控。没有新证据影响长期 thesis。</div>
+        <div class="chat">问我任何关于持仓的问题…　　↗</div>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>A · 完全对话优先</h3>
+      <p>最安静，但看不到系统究竟在监控什么，也缺少一点“这是我的投资分身”的感觉。</p>
+    </div>
+  </div>
+
+  <div class="card" data-choice="quiet-holdings-home" onclick="toggleSelect(this)">
+    <div class="card-image" style="padding:12px;background:#e8ebf1">
+      <div class="screen">
+        <div class="topbar"><span class="logo">COPILOT</span><span><i class="status-dot"></i><span class="dim">All systems healthy</span></span></div>
+        <div class="headline">今天有 1 个变化值得看。</div>
+        <div class="subline">其余持仓没有影响长期 thesis 的新证据。</div>
+        <div class="event">
+          <div class="event-title">个股 A · 毛利率明显改善</div>
+          <div class="event-copy">相比过去四季提高。主要证据来自产品组合改善；持续性仍需观察下一季订单。</div>
+        </div>
+        <div class="holdings-strip">
+          <div class="holding-chip signal"><strong>个股 A</strong><span>1 个变化</span></div>
+          <div class="holding-chip"><strong>个股 B</strong><span>安静</span></div>
+          <div class="holding-chip"><strong>ETF A</strong><span>200 日线上</span></div>
+        </div>
+        <div class="chat">问我：这会增强我的 thesis 吗？　　↗</div>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>B · 轻量持仓露出 <span class="recommend">推荐</span></h3>
+      <p>持仓只是几张安静的小标签；首页仍围绕“今天有什么变化”和对话，不展示价格、盈亏或排行榜。</p>
+    </div>
+  </div>
+
+  <div class="card" data-choice="portfolio-dashboard-home" onclick="toggleSelect(this)">
+    <div class="card-image" style="padding:12px;background:#e8ebf1">
+      <div class="screen">
+        <div class="topbar"><span class="logo">COPILOT</span><span class="mini-nav">Portfolio　Evidence　Rules</span></div>
+        <div class="headline">Portfolio</div>
+        <div class="subline">3 positions · 1 signal · updated after close</div>
+        <div class="portfolio-list">
+          <div class="portfolio-row"><strong>个股 A</strong><span class="badge signal">变化</span><span>Conviction #1</span></div>
+          <div class="portfolio-row"><strong>个股 B</strong><span class="badge">安静</span><span>Conviction #2</span></div>
+          <div class="portfolio-row"><strong>ETF A</strong><span class="badge">200D 上方</span><span>ETF #1</span></div>
+        </div>
+        <div class="event">
+          <div class="event-title">Latest evidence</div>
+          <div class="event-copy">个股 A 毛利率改善 · 行业需求保持强劲 · 2 个来源</div>
+        </div>
+        <div class="chat">Ask your portfolio…　　↗</div>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>C · 持仓 Dashboard</h3>
+      <p>信息最完整，但容易把首页变成要天天看、要管理的投资终端，和“减轻 load”冲突。</p>
+    </div>
+  </div>
+</div>

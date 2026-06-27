@@ -1,0 +1,142 @@
+<style>
+  :root { color-scheme: light !important; }
+  html, body { background:#f3f6fa !important; color:#152033 !important; }
+  h1,h2,h3,h4,p,li,strong,small,.label,.subtitle,.mockup-header,.mockup-body,.option,.content {
+    color:#152033 !important;
+  }
+  .subtitle, small { color:#536078 !important; }
+  .panel { background:#fff; border:1px solid #d9e1ec; border-radius:14px; padding:18px; box-shadow:0 8px 24px rgba(31,45,78,.07); }
+  .truth { border-left:5px solid #24845f; }
+  .discard { border-left:5px solid #cf4f4f; }
+  .modify { border-left:5px solid #d78b24; }
+  .keep { border-left:5px solid #4771e6; }
+  .stage { background:#fff; border-radius:15px; padding:18px; box-shadow:0 8px 24px rgba(31,45,78,.08); }
+  .option { background:#fff !important; border-color:#cbd5e1 !important; }
+  .option:hover,.option.selected { background:#edf3ff !important; border-color:#4771e6 !important; }
+  table { width:100%; border-collapse:collapse; background:#fff; }
+  th,td { padding:11px 12px; border-bottom:1px solid #dde4ed; text-align:left; vertical-align:top; color:#152033 !important; }
+  th { background:#eaf0f8; }
+</style>
+
+<h2>第一性原理重构：Quiet Neurosymbolic Investing Copilot</h2>
+<p class="subtitle">不是“把 Agent、RAG、PyReason 拼在一起”，而是从保护注意力、保留决策主权、提高证据质量重新推导系统。</p>
+
+<div class="panel truth section">
+  <div class="label">PROBLEM ESSENCE</div>
+  <h3>唯一核心任务</h3>
+  <p style="font-size:18px;margin-bottom:8px"><strong>持续观察你的私人持仓，只在新证据可能改变 thesis 或风险暴露时打扰你，并且让你看得懂为什么。</strong></p>
+  <p style="margin-bottom:0">它减少研究和监控负担，但永远不接管 conviction，也不执行交易。</p>
+</div>
+
+<div class="section">
+  <h3>不可再分解的 Ground Truths</h3>
+  <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px">
+    <div class="panel"><strong>1 · 市场真相不完整</strong><br><small>缺少证据不等于事实为假；系统必须允许 unknown。</small></div>
+    <div class="panel"><strong>2 · LLM 会误读和脑补</strong><br><small>它可以提取、关联、解释，不能单独建立事实或决定打扰。</small></div>
+    <div class="panel"><strong>3 · 你的注意力是稀缺资源</strong><br><small>提醒本身有成本；“保持沉默”必须是一等输出。</small></div>
+    <div class="panel"><strong>4 · Conviction 属于你</strong><br><small>AI 只能提出带证据的 diff，不能偷偷修改长期立场。</small></div>
+    <div class="panel"><strong>5 · 证据会过时且互相冲突</strong><br><small>必须记录发生时间、观察时间、来源、置信度和反证。</small></div>
+    <div class="panel"><strong>6 · 无评估就没有可信提醒</strong><br><small>Eval、审计与回放从 MVP 开始，不是最后装饰。</small></div>
+  </div>
+</div>
+
+<div class="section">
+  <h3>原计划中被挑战的假设</h3>
+  <table>
+    <thead><tr><th>原假设</th><th>判决</th><th>第一性原理修正</th></tr></thead>
+    <tbody>
+      <tr><td>Eval 放到 C / v4</td><td><strong style="color:#b53d3d!important">丢弃</strong></td><td>MVP 就记录每次候选事件、触发/沉默原因、重复率和人工反馈；C 只负责扩大基准集。</td></tr>
+      <tr><td>Agent 自主决定定时提醒</td><td><strong style="color:#b53d3d!important">丢弃</strong></td><td>定时管线是确定性的；Agent 只服务手动研究和问答。两条执行路径物理分离。</td></tr>
+      <tr><td>PyReason 是统一规则引擎</td><td><strong style="color:#a96a13!important">修改</strong></td><td>简单阈值继续用 Python policy engine；PyReason 专注跨实体、时间、冲突证据的推理，并置于可替换接口后。</td></tr>
+      <tr><td>新闻是系统的核心对象</td><td><strong style="color:#b53d3d!important">丢弃</strong></td><td>核心对象改为 evidence claim / event；一条新闻可能包含多条证据，多篇新闻也可能是同一事件。</td></tr>
+      <tr><td>200 日线是产品核心</td><td><strong style="color:#a96a13!important">修改</strong></td><td>它只是一个可解释传感器插件；真正核心是 thesis/risk change detection。</td></tr>
+      <tr><td>越聪明就越应该自动记忆</td><td><strong style="color:#a96a13!important">修改</strong></td><td>分成 working inference 与 confirmed memory；前者可自动生成，后者必须经你确认。</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="section">
+  <h3>重新推导后的三阶段</h3>
+  <div style="display:grid;grid-template-columns:1fr auto 1.15fr auto 1fr;gap:14px;align-items:stretch">
+    <div class="stage" style="border:3px solid #4771e6">
+      <div class="label">A · TRUSTWORTHY MVP</div>
+      <h3>Personal Policy + Quiet Alerts</h3>
+      <ul>
+        <li>持仓、Conviction Card、风险宪法</li>
+        <li>EOD 价格、200 日线、SEC/公司一手事件</li>
+        <li>Evidence Ledger：每条事实带 provenance</li>
+        <li>确定性 policy engine：阈值、冷却、每日预算</li>
+        <li>事件指纹去重，不急着上 pgvector</li>
+        <li><strong>先 shadow mode，再真实推送</strong></li>
+        <li>Discord + 审计日志 + 基础 Eval</li>
+      </ul>
+    </div>
+    <div style="display:flex;align-items:center;font-size:28px;color:#61708a">→</div>
+    <div class="stage" style="border:3px solid #7b4acb;background:#fcf9ff">
+      <div class="label">B · NEUROSYMBOLIC COPILOT</div>
+      <h3>Evidence Graph + PyReason</h3>
+      <ul>
+        <li>只读研究 Agent，与定时提醒管线分离</li>
+        <li>LLM 生成带引用的 candidate claims</li>
+        <li>Evidence Gate 检查来源、时效、冲突与交叉认证</li>
+        <li>公司、指标、产业因子、thesis 组成时间证据图</li>
+        <li><strong>PyReason 推导支持/削弱/未知及完整 proof trace</strong></li>
+        <li>向你提出 Conviction Card diff，必须确认</li>
+        <li>PyReason spike 必须证明优于简单规则才扩大使用</li>
+      </ul>
+    </div>
+    <div style="display:flex;align-items:center;font-size:28px;color:#61708a">→</div>
+    <div class="stage" style="border:3px solid #288c69;background:#f7fdfa">
+      <div class="label">C · SCALE & SCIENCE</div>
+      <h3>Platform + Evaluation</h3>
+      <ul>
+        <li>Embedding + pgvector 语义事件聚类</li>
+        <li>来源冗余、Telegram 等多渠道</li>
+        <li>历史回放与规则版本化</li>
+        <li>新闻/事件 precision、recall</li>
+        <li>幻觉、引用正确性、越界行为 Eval</li>
+        <li>提醒价值、漏报率、用户注意力成本</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<div class="mockup section" style="background:#fff">
+  <div class="mockup-header" style="background:#e8eef8"><strong>最终执行边界：两条路径，绝不混在一起</strong></div>
+  <div class="mockup-body">
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:18px">
+      <div class="panel keep">
+        <h3>Scheduled Alert Pipeline</h3>
+        <p><strong>数据 → 事实验证 → 规则/PyReason 输出 → 必要性门控 → Discord</strong></p>
+        <p style="margin-bottom:0">每一步可回放；LLM 只能把已通过门控的证据说成人话。</p>
+      </div>
+      <div class="panel modify">
+        <h3>Interactive Research Agent</h3>
+        <p><strong>你的问题 → 自主调只读工具 → 搜集与质疑证据 → 回答 / 提出 diff</strong></p>
+        <p style="margin-bottom:0">可以聪明地探索，但不能修改 confirmed memory、规则或 conviction。</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="panel discard section">
+  <h3 style="margin-top:0">最重要的删减</h3>
+  <p style="margin-bottom:0">MVP 不做全网新闻理解、不做向量数据库、不做多 Agent、不做自动 conviction、不做交易执行。先证明：连续 30 天，它的沉默和提醒都值得信任。</p>
+</div>
+
+<div class="options">
+  <div class="option" data-choice="approve-first-principles-core" onclick="toggleSelect(this)">
+    <div class="letter">✓</div>
+    <div class="content">
+      <h3>认可这套第一性原理主干</h3>
+      <p>下一步细化 A 阶段的数据流、规则契约和 shadow-mode 验收标准。</p>
+    </div>
+  </div>
+  <div class="option" data-choice="challenge-first-principles-core" onclick="toggleSelect(this)">
+    <div class="letter">?</div>
+    <div class="content">
+      <h3>继续挑战</h3>
+      <p>指出你认为仍然是技术导向、限制过度或不像你的地方。</p>
+    </div>
+  </div>
+</div>

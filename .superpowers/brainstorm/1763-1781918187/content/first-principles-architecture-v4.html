@@ -1,0 +1,190 @@
+<style>
+  :root { color-scheme: light !important; }
+  html,body { background:#f3f6fa!important; color:#152033!important; }
+  h1,h2,h3,h4,p,li,strong,small,.label,.subtitle,.mockup-header,.mockup-body,.option,.content,th,td {
+    color:#152033!important;
+  }
+  .subtitle,small { color:#536078!important; }
+  .panel,.stage { background:#fff;border:1px solid #d9e1ec;border-radius:14px;padding:18px;box-shadow:0 8px 24px rgba(31,45,78,.07); }
+  .danger { border-left:6px solid #c94747; }
+  .warning { border-left:6px solid #d88a22; }
+  .truth { border-left:6px solid #278762; }
+  .blue { border-left:6px solid #4771e6; }
+  .purple { border-left:6px solid #7547c1; }
+  table { width:100%;border-collapse:collapse;background:#fff;border-radius:12px;overflow:hidden; }
+  th,td { padding:11px 12px;border-bottom:1px solid #dde4ed;text-align:left;vertical-align:top; }
+  th { background:#e7edf7; }
+  .option { background:#fff!important;border-color:#cbd5e1!important; }
+  .option:hover,.option.selected { background:#edf3ff!important;border-color:#4771e6!important; }
+</style>
+
+<h2>第二轮自我拷打：上一版仍然不够第一性原理</h2>
+<p class="subtitle">结论：方向正确，但仍有七个会让系统“看起来聪明、实际不可信”的结构性漏洞。以下已直接修正。</p>
+
+<div class="section">
+  <h3>七个隐藏漏洞</h3>
+  <table>
+    <thead><tr><th>漏洞</th><th>为什么会失败</th><th>修正后的不变量</th></tr></thead>
+    <tbody>
+      <tr><td><strong>1. 只关注 thesis / risk change</strong></td><td>会漏掉投票、要约、拆股、财报日期变化等需要行动但不改变 thesis 的事件。</td><td>核心对象改为 <strong>Decision-Relevant Change</strong>：thesis、风险、义务、机会和系统健康变化。</td></tr>
+      <tr><td><strong>2. “通过认证的事实”过于天真</strong></td><td>公司公告也可能只是管理层陈述；分析师预测不是事实；derived metric 也可能算错。</td><td>所有 claim 必须分类：observed fact、reported assertion、derived metric、forecast、interpretation；永不混写。</td></tr>
+      <tr><td><strong>3. Conviction 可能污染真相</strong></td><td>若高 conviction 提高支持性证据权重，系统会变成精致的 confirmation-bias machine。</td><td><strong>Evidence Layer 与 Belief Layer 物理分离</strong>；conviction 只能影响提醒优先级，不能影响事实置信度或推理真假。</td></tr>
+      <tr><td><strong>4. PyReason 带来“形式化即正确”的幻觉</strong></td><td>逻辑链可以完全可解释但前提错误；区间也不等于校准概率。</td><td>PyReason 是候选 reasoner；必须在同一场景集上优于简单规则 baseline，且区间明确标为 logical annotation，而非概率。</td></tr>
+      <tr><td><strong>5. 30 天 shadow mode 不足</strong></td><td>重大事件稀少，30 天可能什么都没发生，无法证明 recall。</td><td>上线门槛是 <strong>历史回放 + 合成/对抗场景 + live shadow</strong> 三者同时通过。</td></tr>
+      <tr><td><strong>6. 安静可能意味着系统已经瞎了</strong></td><td>数据源中断、交易日历错误、定时任务失效时，系统也会“无事不发”。</td><td>区分 <strong>quiet</strong> 与 <strong>blind</strong>；数据陈旧、抓取失败和任务漏跑必须触发系统健康告警。</td></tr>
+      <tr><td><strong>7. 私人分身却缺少隐私边界</strong></td><td>持仓、成本、规则和 conviction 比新闻更敏感；云端、LLM、Discord 都可能扩大暴露。</td><td>最小化发送上下文、私有频道 allowlist、敏感日志脱敏、密钥隔离；原始组合数据不默认发给 LLM。</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="panel truth section">
+  <div class="label">REVISED PROBLEM ESSENCE</div>
+  <h3>真正不可约的任务</h3>
+  <p style="font-size:18px;margin-bottom:8px"><strong>在可证明自己没有失明的前提下，持续检测与你的持仓相关的 decision-relevant changes，只在你现在知道它会产生价值时打扰你。</strong></p>
+  <p style="margin-bottom:0">“像你”只用于理解目标、时间尺度、风险边界和表达方式；绝不用于扭曲证据。</p>
+</div>
+
+<div class="section">
+  <h3>新的知识边界：来源不等于真相</h3>
+  <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:10px;text-align:center">
+    <div class="panel"><strong>Observed Fact</strong><br><small>价格、正式报表字段、已发生公司行动</small></div>
+    <div class="panel"><strong>Reported Assertion</strong><br><small>管理层、供应商、媒体声称了什么</small></div>
+    <div class="panel"><strong>Derived Metric</strong><br><small>系统根据定义计算出的趋势与比率</small></div>
+    <div class="panel"><strong>Forecast</strong><br><small>未来需求、行业周期、管理层 guidance</small></div>
+    <div class="panel"><strong>Interpretation</strong><br><small>LLM 或分析师对前述证据的含义判断</small></div>
+  </div>
+  <div class="panel warning" style="margin-top:12px">
+    <strong>禁止向上伪装：</strong>interpretation 不能写成 forecast，forecast 不能写成 assertion，assertion 不能写成 observed fact。
+  </div>
+</div>
+
+<div class="mockup section" style="background:#fff">
+  <div class="mockup-header" style="background:#e7edf7"><strong>最终领域模型：证据与信念永不混库</strong></div>
+  <div class="mockup-body">
+    <div style="display:grid;grid-template-columns:1fr auto 1.2fr auto 1fr;gap:12px;align-items:center;text-align:center">
+      <div class="panel blue">
+        <strong>Evidence Plane</strong><br>
+        Source → Claim → Event<br>
+        <small>来源、时间、类型、冲突、数据质量</small>
+      </div>
+      <div style="font-size:26px;color:#64728a">→</div>
+      <div class="panel purple">
+        <strong>Reasoning Plane</strong><br>
+        Baseline Rules / PyReason<br>
+        <small>同一输入、版本化规则、完整 proof trace</small>
+      </div>
+      <div style="font-size:26px;color:#64728a">←</div>
+      <div class="panel warning">
+        <strong>Belief Plane</strong><br>
+        Thesis / Horizon / Falsifiers / Conviction<br>
+        <small>只定义“与你有多相关”，不定义“事实有多真”</small>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="section">
+  <h3>提醒决策不再用一个神秘总分</h3>
+  <div style="display:grid;grid-template-columns:1fr auto 1fr auto 1fr;gap:12px;align-items:stretch">
+    <div class="stage" style="border-top:5px solid #c94747">
+      <h3>Hard Gates</h3>
+      <ul>
+        <li>在私人持仓范围内</li>
+        <li>来源与时效达到最低标准</li>
+        <li>相对上次已知状态具有 novelty</li>
+        <li>能映射到 decision-relevant change</li>
+      </ul>
+      <small>任何一项失败，不能靠“影响很大”补偿。</small>
+    </div>
+    <div style="display:flex;align-items:center;font-size:26px;color:#64728a">→</div>
+    <div class="stage" style="border-top:5px solid #d88a22">
+      <h3>Policy Classification</h3>
+      <ul>
+        <li>Urgent：风险/义务需尽快知道</li>
+        <li>Digest：有价值但无需即时</li>
+        <li>Silent：相关但不值得占用注意力</li>
+      </ul>
+      <small>“每日一条”是容器预算，不是一日只能有一个事件。</small>
+    </div>
+    <div style="display:flex;align-items:center;font-size:26px;color:#64728a">→</div>
+    <div class="stage" style="border-top:5px solid #278762">
+      <h3>Explain Necessity</h3>
+      <ul>
+        <li>发生了什么、属于哪种 claim</li>
+        <li>为什么现在值得打扰</li>
+        <li>相对上次改变了什么</li>
+        <li>支持、反证与未知分别是什么</li>
+      </ul>
+      <small>LLM 只在这里负责表达，不拥有门控权。</small>
+    </div>
+  </div>
+</div>
+
+<div class="section">
+  <h3>三阶段最终修订</h3>
+  <div style="display:grid;grid-template-columns:1fr auto 1.15fr auto 1fr;gap:14px;align-items:stretch">
+    <div class="stage" style="border:3px solid #4771e6">
+      <div class="label">A · PROVE TRUST</div>
+      <h3>Quiet Monitor</h3>
+      <ul>
+        <li>模块化单体 + 单数据库</li>
+        <li>持仓、Thesis Card、用户批准的风险宪法</li>
+        <li>EOD / SEC / IR 数据与类型化 Evidence Ledger</li>
+        <li>确定性规则、事件指纹、冷却与 digest</li>
+        <li>数据新鲜度和任务健康监测</li>
+        <li>历史回放 + 场景测试 + shadow mode</li>
+        <li>LLM 摘要可关闭，模板是可靠 fallback</li>
+      </ul>
+    </div>
+    <div style="display:flex;align-items:center;font-size:28px;color:#64728a">→</div>
+    <div class="stage" style="border:3px solid #7547c1;background:#fcf9ff">
+      <div class="label">B · EARN NEUROSYMBOLIC</div>
+      <h3>Research Copilot</h3>
+      <ul>
+        <li>只读 Agent 与定时管线物理分离</li>
+        <li>候选 claim 抽取、引用与 epistemic typing</li>
+        <li>产业背景、供应链和反面证据检索</li>
+        <li>Evidence Graph + baseline reasoner</li>
+        <li>PyReason 先做 bounded spike 和对照 Eval</li>
+        <li>赢得价值后才进入生产推理路径</li>
+        <li>所有 memory / conviction 更新只提交 diff</li>
+      </ul>
+    </div>
+    <div style="display:flex;align-items:center;font-size:28px;color:#64728a">→</div>
+    <div class="stage" style="border:3px solid #278762;background:#f7fdfa">
+      <div class="label">C · SCALE WHAT WORKS</div>
+      <h3>Platform & Science</h3>
+      <ul>
+        <li>仅在指纹去重不足时引入 pgvector</li>
+        <li>多来源、多渠道与故障切换</li>
+        <li>更大历史基准和人工标注集</li>
+        <li>precision / recall / calibration</li>
+        <li>提醒价值和注意力成本实验</li>
+        <li>规则、模型、prompt 与 proof 全版本化</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<div class="panel danger section">
+  <h3 style="margin-top:0">最严厉的结论</h3>
+  <p><strong>“Neurosymbolic” 不是产品需求，是待证明的实现假设。</strong>产品必须先在没有 PyReason、没有向量数据库、甚至没有 LLM 的情况下证明自己能正确观察、正确沉默、正确解释。</p>
+  <p style="margin-bottom:0">只有当复杂推理确实减少漏报、提高解释质量，且没有制造虚假的确定性时，PyReason 才算赚到了它的位置。这样面试时说出来反而更强：你不是为了 buzzword 使用它，而是用 baseline 和 Eval 证明了它的边际价值。</p>
+</div>
+
+<div class="options">
+  <div class="option" data-choice="approve-second-principles-audit" onclick="toggleSelect(this)">
+    <div class="letter">✓</div>
+    <div class="content">
+      <h3>认可第二轮修订</h3>
+      <p>按这套不变量进入 A 阶段详细设计。</p>
+    </div>
+  </div>
+  <div class="option" data-choice="third-principles-audit" onclick="toggleSelect(this)">
+    <div class="letter">Ⅲ</div>
+    <div class="content">
+      <h3>再拷打一轮</h3>
+      <p>继续攻击产品边界、成本、数据源与用户行为假设。</p>
+    </div>
+  </div>
+</div>
