@@ -1,0 +1,37 @@
+[
+    {
+        "id": "nvda-export-regulation-2026-06-27",
+        "ticker": "NVDA",
+        "title": "NVDA shares fall after export restriction",
+        "source": "Reuters",
+        "url": "https://example.com/nvda-export",
+        "published_at": "2026-06-26T14:30:00Z",
+        "category": "regulation",
+        "themes": ["AI infrasctructure", "semiconductor", "export control"],
+        "summary": "New export restrictions may affect Nvidia's ability to sell advance AI chips to certain markets "
+    },
+
+    {
+        "id": "pltr-army-contract-2026-06-27",
+        "ticker": "PLTR",
+        "title": "Palantir wins $400M Army contract for AI batterfield system",
+        "source": "Reuters",
+        "url": "https://example.com/pltr-army-contract",
+        "published_at": "2026-06-26T10:30:00Z",
+        "category": "contract",
+        "themes": ["software"],
+        "summary": "The Department of Defense awarded Palantir a multi-year contract to expand its Maven Smart System across Army units."
+    },
+
+    {
+        "id": "tsm-q2-revenue-2026-06-27",
+        "ticker": "TSM",
+        "title": "TSMC reports record Q2 revenue on AI chip demand",
+        "source": "CNBC",
+        "url": "https://example.com/tsm-q2",
+        "published_at": "2026-06-24T22:00:00Z",
+        "category": "revenue",
+        "themes": ["semiconductor manufacturing", "AI chip", "revenue"],
+        "summary": "Taiwan Semiconductor posted quarterly revenue beating estimates, driven by orders for advanced 3nm process nodes."
+    }
+]
