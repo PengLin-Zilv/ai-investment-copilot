@@ -7,14 +7,14 @@
         "url": "https://example.com/nvda-export",
         "published_at": "2026-06-26T14:30:00Z",
         "category": "regulation",
-        "themes": ["AI infrasctructure", "semiconductor", "export control"],
-        "summary": "New export restrictions may affect Nvidia's ability to sell advance AI chips to certain markets "
+        "themes": ["AI infrastructure", "semiconductor", "export control"],
+        "summary": "New export restrictions may affect Nvidia's ability to sell advanced AI chips to certain markets."
     },
 
     {
         "id": "pltr-army-contract-2026-06-27",
         "ticker": "PLTR",
-        "title": "Palantir wins $400M Army contract for AI batterfield system",
+        "title": "Palantir wins $400M Army contract for AI battlefield system",
         "source": "Reuters",
         "url": "https://example.com/pltr-army-contract",
         "published_at": "2026-06-26T10:30:00Z",
