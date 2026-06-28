@@ -10,5 +10,5 @@ class NewsItem(BaseModel):
     url: str
     published_at: datetime
     category: str
-    theme: list[str]
+    themes: list[str]
     summary: str
