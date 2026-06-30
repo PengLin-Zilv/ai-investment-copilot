@@ -1,4 +1,6 @@
-""""Turns the news to NewsItem"""
+""""
+This script turns the news to NewsItem
+"""
 
 import json
 from pathlib import Path

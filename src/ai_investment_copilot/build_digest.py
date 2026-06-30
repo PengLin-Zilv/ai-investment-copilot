@@ -1,4 +1,6 @@
-"""This script turns list[NewsItem] to daily_digest.md"""
+"""
+This script turns list[NewsItem] to daily_digest.md
+"""
 from pathlib import Path
 from ai_investment_copilot.models.news import NewsItem
 
