@@ -15,6 +15,3 @@ def load_news(json_path: str | Path) -> list[NewsItem]:
 
     return news_item
 
-if __name__ == '__main__':
-    print(load_news("data/fixtures/mock_news.json"))
-
