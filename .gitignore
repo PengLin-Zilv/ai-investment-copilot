@@ -23,3 +23,5 @@ graphify-out/
 # codex
 .codex/
 AGENTS.md
+
+.env
