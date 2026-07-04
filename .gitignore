@@ -11,3 +11,10 @@ wheels/
 
 # skills
 .superpowers/
+
+# graphify
+graphify-out/
+
+# cache
+.pytest_cache/
+.ruff_cache/
