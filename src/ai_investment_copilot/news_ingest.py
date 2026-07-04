@@ -9,6 +9,7 @@ from pathlib import Path
 import yfinance as yf
 
 from ai_investment_copilot.models.news import NewsItem
+from ai_investment_copilot.yfinance_config import configure_yfinance_cache
 
 
 FINANCIAL_KEYWORDS = ["earnings", "revenue", "cash flow", "margin", "guidance"]
@@ -37,6 +38,7 @@ def load_news(json_path: str | Path) -> list[NewsItem]:
 
 def load_ticker_news(tickers: list[str], limit_per_ticker: int = 5) -> list[NewsItem]:
     """Load recent Yahoo Finance news for watchlist tickers."""
+    configure_yfinance_cache()
     news_items = []
 
     for ticker in tickers:
