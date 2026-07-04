@@ -36,15 +36,20 @@ def build_discord_digest(
     news_items: list[NewsItem],
     price_moves: dict[str, float] | None = None,
     max_items: int = 5,
+    max_per_ticker: int = 2,
 ) -> str:
     """Build a compact Discord notification from ranked news items."""
     price_moves = price_moves or {}
     lines = ["# Daily Market Signals", ""]
     included_count = 0
+    ticker_counts: dict[str, int] = {}
 
     for item in news_items:
         score = score_news(item)
         if score.value <= 0:
+            continue
+
+        if ticker_counts.get(item.ticker, 0) >= max_per_ticker:
             continue
 
         block = [
@@ -67,6 +72,7 @@ def build_discord_digest(
 
         lines = candidate_lines
         included_count += 1
+        ticker_counts[item.ticker] = ticker_counts.get(item.ticker, 0) + 1
         if included_count >= max_items:
             break
 
