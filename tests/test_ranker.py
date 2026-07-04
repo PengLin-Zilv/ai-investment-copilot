@@ -33,7 +33,10 @@ def test_score_news_rewards_long_term_thesis_evidence():
         summary="Revenue beat estimates on demand for advanced AI chips.",
     )
 
-    assert score_news(item) == 8
+    score = score_news(item)
+
+    assert score.value == 8
+    assert score.reasons == ["Financial category", "AI infrastructure keyword"]
 
 
 def test_rank_news_orders_thesis_impact_before_narrow_contract_news():
