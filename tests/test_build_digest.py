@@ -71,3 +71,21 @@ def test_build_discord_digest_skips_low_score_and_small_price_moves():
     assert "Palantir stock commentary" not in markdown
     assert "Move:" not in markdown
     assert len(markdown) <= 1900
+
+
+def test_build_discord_digest_limits_items_per_ticker():
+    items = [
+        make_news_item(
+            item_id=f"tsm-{i}",
+            ticker="TSM",
+            title=f"TSM AI chip story {i}",
+            category="contract",
+            themes=["AI infrastructure", "AI chip"],
+            summary=f"AI chip supply signal number {i}.",
+        )
+        for i in range(4)
+    ]
+
+    markdown = build_discord_digest(items)
+
+    assert markdown.count("**TSM**") == 2

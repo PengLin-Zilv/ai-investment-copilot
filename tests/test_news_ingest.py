@@ -59,3 +59,40 @@ def test_load_ticker_news_uses_yfinance_ticker_news(monkeypatch):
     assert len(items) == 1
     assert items[0].ticker == "TSM"
     assert items[0].category == "revenue"
+
+
+def test_load_ticker_news_filters_blocked_sources(monkeypatch):
+    class FakeTicker:
+        def __init__(self, ticker: str):
+            self.ticker = ticker
+
+        def get_news(self, count: int = 10):
+            return [
+                {
+                    "id": "fool-story",
+                    "content": {
+                        "title": "10 stupid stock picks for AI chip riches",
+                        "summary": "Generic hype about semiconductor stocks.",
+                        "pubDate": "2026-07-04T12:00:00Z",
+                        "provider": {"displayName": "The Motley Fool"},
+                        "canonicalUrl": {"url": "https://example.com/fool"},
+                    },
+                },
+                {
+                    "id": "good-story",
+                    "content": {
+                        "title": "TSMC reports AI chip revenue growth",
+                        "summary": "Revenue grew on AI chip demand.",
+                        "pubDate": "2026-07-04T12:00:00Z",
+                        "provider": {"displayName": "CNBC"},
+                        "canonicalUrl": {"url": "https://example.com/tsm-revenue"},
+                    },
+                },
+            ]
+
+    monkeypatch.setattr(news_ingest.yf, "Ticker", FakeTicker)
+
+    items = load_ticker_news(["TSM"], limit_per_ticker=5)
+
+    assert [item.source for item in items] == ["CNBC"]
+    assert all("motley fool" not in item.source.lower() for item in items)

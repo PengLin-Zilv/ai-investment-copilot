@@ -12,6 +12,8 @@ from ai_investment_copilot.models.news import NewsItem
 from ai_investment_copilot.yfinance_config import configure_yfinance_cache
 
 
+BLOCKED_SOURCES = ["motley fool"]
+
 FINANCIAL_KEYWORDS = ["earnings", "revenue", "cash flow", "margin", "guidance"]
 CONTRACT_KEYWORDS = ["contract", "partnership", "collaboration", "agreement", "deal"]
 RISK_KEYWORDS = ["regulation", "restriction", "export control", "supply chain"]
@@ -43,12 +45,19 @@ def load_ticker_news(tickers: list[str], limit_per_ticker: int = 5) -> list[News
 
     for ticker in tickers:
         raw_items = yf.Ticker(ticker).get_news(count=limit_per_ticker)
-        news_items.extend(
-            yfinance_news_to_news_item(ticker, raw_item)
-            for raw_item in raw_items[:limit_per_ticker]
-        )
+        for raw_item in raw_items[:limit_per_ticker]:
+            item = yfinance_news_to_news_item(ticker, raw_item)
+            if _is_blocked_source(item.source):
+                continue
+            news_items.append(item)
 
     return news_items
+
+
+def _is_blocked_source(source: str) -> bool:
+    """Return True if the news source is on the blocklist."""
+    source_lower = source.lower()
+    return any(blocked in source_lower for blocked in BLOCKED_SOURCES)
 
 
 def yfinance_news_to_news_item(ticker: str, raw_item: dict) -> NewsItem:
