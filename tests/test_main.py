@@ -34,7 +34,7 @@ def test_main_uses_watchlist_ticker_news_without_webhook(monkeypatch):
     monkeypatch.setattr(app_main, "get_price_moves", lambda tickers: calls.update(price_moves=True))
     monkeypatch.setattr(app_main, "save_digest", fake_save_digest)
     monkeypatch.setattr(app_main, "send_discord_message", lambda markdown, webhook_url: calls.update(discord=True))
-    monkeypatch.delenv("DISCORD_WEBHOOK_URL", raising=False)
+    monkeypatch.setenv("DISCORD_WEBHOOK_URL", "")
 
     app_main.main()
 
