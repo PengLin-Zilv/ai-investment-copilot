@@ -23,7 +23,6 @@ data/cache/
 
 # codex
 .codex/
-AGENTS.md
 
 .env
 
