@@ -1,0 +1,1 @@
+from ai_investment_copilot.models.news import NewsItem
