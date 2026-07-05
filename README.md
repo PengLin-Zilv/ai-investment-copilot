@@ -1,15 +1,20 @@
 ﻿# AI Investment Copilot
 
-A personal market intelligence copilot that turns market news into a clean daily digest.
+A personal investment copilot that watches your list, turns market news into a clean digest, and delivers it to your Discord channel (for now). 
 
 This project is not a trading advisor. It does not make buy, sell, or hold decisions. The goal is to filter market information, summarize what matters, and help the user review news with less noise.
 
+The goal of the project is to build an AI assistant who has your convictions, your styles, and adapatively becoming the AI companion you need - to save your time to work on other important things in life. 
+
+Less unnecessary decision, less unnecessary trade, less unnecessary stress, more necessary time to think and enjoy life.
+
+
 ## Current Status
 
-The first mock-news pipeline works:
+The pipeline works:
 
 ```text
-mock_news.json -> load_news -> rank_news -> build_digest -> save_digest -> daily_digest.md
+your watchlsit -> sort yfinance news base on your convictions -> build digest -> send to discord 
 ```
 
 The project currently uses mock news data from `data/fixtures/mock_news.json` and generates a markdown digest at `data/output/daily_digest.md`.
@@ -22,50 +27,37 @@ ai-investment-copilot/
 │  ├─ fixtures/
 │  │  └─ mock_news.json
 │  └─ output/
-│     └─ daily_digest.md
+│     ├─ daily_digest.md
+│     └─ test.md
 ├─ docs/
+│  └─ CONTEXT.md
 ├─ src/
 │  └─ ai_investment_copilot/
+│     ├─ __init__.py
+│     ├─ build_digest.py
+│     ├─ discord_delivery.py
 │     ├─ main.py
+│     ├─ market_data.py
 │     ├─ news_ingest.py
 │     ├─ ranker.py
-│     ├─ build_digest.py
+│     ├─ yfinance_config.py
 │     └─ models/
+│        ├─ __init__.py
 │        └─ news.py
 ├─ tests/
+│  ├─ test_build_digest.py
+│  ├─ test_main.py
+│  ├─ test_market_data.py
+│  ├─ test_news_ingest.py
+│  ├─ test_news_item.py
+│  └─ test_ranker.py
+├─ .gitignore
+├─ .python-version
 ├─ pyproject.toml
+├─ uv.lock
 └─ README.md
 ```
 
-## Pipeline
-
-### 1. `NewsItem`
-
-`NewsItem` is the internal data contract for one news item.
-
-It defines the fields the rest of the pipeline expects, such as ticker, title, URL, themes, published time, and summary.
-
-### 2. `news_ingest.py`
-
-Loads raw JSON news data and converts each item into a `NewsItem`.
-
-This keeps external data formats isolated from the rest of the system.
-
-### 3. `ranker.py`
-
-Ranks news items by importance.
-
-Right now, `rank_news` is a pass-through function. It returns the news items unchanged so the pipeline structure can be tested first. Later, this module can use rules or an LLM to rank news.
-
-### 4. `build_digest.py`
-
-Turns ranked `NewsItem` objects into markdown text and saves the digest to a file.
-
-### 5. `main.py`
-
-Runs the full pipeline in order.
-
-It imports the pipeline steps and orchestrates them without owning the business logic.
 
 ## Setup
 
@@ -88,20 +80,17 @@ This generates:
 ```text
 data/output/daily_digest.md
 ```
+and sends a Discord message if `DISCORD_WEBHOOK_URL` is set in `.env`.
 
 ## Current Limitations
 
-- Uses mock news data only.
-- Ranking is currently pass-through.
-- No real news API integration yet.
-- No LLM summarization or scoring yet.
-- No Discord or Telegram delivery yet.
-- No frontend yet.
+- Static watchlist hardcoded in `main.py`. User should be able to configure their own watchlist.
+- Static news source (Yahoo Finance) hardcoded in `news_ingest.py`. User should be able to choose multiple news sources. (Motley Fool is currently blocked due to low-quality content.)
+- Ranking is based on simple keyword matching. User should be able to configure their own ranking rules and weights.
+- No Telegram/other platform delivery yet. User should be able to choose their preferred delivery platform.
+- No LLM summarization or scoring yet. LLM should be able to summarize news and score importance based on user-defined criteria. User should be able to ask LLM questions about the news digest and get answers in natural language. 
+- No frontend yet. User should be able to view the digest in a web interface and interact with the LLM. Add their portfolio and watchlist, and get personalized insights and recommendations.
 
 ## Next Steps
-
-1. Add a simple rule-based ranker.
-2. Add real news ingestion from RSS or an API.
-3. Add LLM-based importance scoring.
-4. Add scheduled daily digest delivery.
-5. Add a lightweight dashboard or chat interface.
+1. Add scheduled daily digest delivery.
+2. Add a lightweight dashboard or chat interface.
