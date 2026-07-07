@@ -8,7 +8,7 @@ from ai_investment_copilot.market_data import get_price_moves
 from ai_investment_copilot.news_ingest import load_ticker_news
 from ai_investment_copilot.ranker import rank_news
 
-WATCHLIST = ["NVDA", "TSM", "PLTR"]
+WATCHLIST = ["NVDA", "AMD", "GOOG","TSM", "PLTR"]
 
 def main() -> None:
     load_dotenv()

@@ -21,13 +21,6 @@
 - Source: https://www.thestreet.com/investing/stocks/pltr-palantir-us-national-security-nvidia-ai-alliance
 - Summary: Palantir Technologies is betting big on a simple idea: The U.S. government should never have to depend on someone else's AI model to protect the country. That idea is now a formal partnership. Palantir (PLTR) recently announced it is teaming with NVIDIA to give federal agencies and companies that ...
 
-## PLTR: Needham Maintains Buy Rating on Zeta Global Holdings (ZETA) Stock
-- Priority: 4
-- Why it matters: Contract category
-- Themes: general
-- Source: https://finance.yahoo.com/technology/ai/articles/needham-maintains-buy-rating-zeta-141130943.html
-- Summary: Zeta Global Holdings Corp. (NYSE:ZETA) is one of the Best AI and Technology Stocks to Buy Now. On June 24, Needham maintained a “Buy” rating on the company’s stock and maintained a price objective of $25. According to the firm, the company’s new partnership with AI software firm Palantir remains strategically positive. The agreement focuses on […]
-
 ## TSM: Top Invesco Analyst: The AI Trade That “Lifted All Boats” Is Over. Now Profitability Decides Winners As “Capacity Will Catch Up”
 - Priority: 3
 - Why it matters: AI infrastructure keyword
@@ -41,6 +34,13 @@
 - Themes: general
 - Source: https://www.investors.com/market-trend/stock-market-today/dow-jones-futures-ai-tumbles-apple-robinhood-buy-signals-tesla-sandisk-dive/?src=A00220&yptr=yahoo
 - Summary: The stock market had strong weekly gains, but it didn't feel that way with Sandisk and other AI plays selling off Thursday.
+
+## PLTR: Palantir CEO Alex Karp Says AI Labs Are Chasing 'Tokens' While Enterprises Fear for Their IP: 'Something Has Gone Completely Wrong'
+- Priority: 0
+- Why it matters: 
+- Themes: general
+- Source: https://finance.yahoo.com/technology/ai/articles/palantir-ceo-alex-karp-says-223226928.html
+- Summary: On Wednesday, Palantir Technologies Inc. CEO Alex Karp argued that many enterprise customers are growing increasingly skeptical of frontier AI companies, warning that businesses fear sacrificing their intellectual property and competitive advantage in exchange for AI services. Alex Karp Says...
 
 ## PLTR: Anthony Scaramucci Warns Wealth Inequality Could End With 'Pitchforks,' Urges Rich to 'Spread the Wealth'
 - Priority: 0
