@@ -3,6 +3,8 @@ from datetime import datetime
 
 
 class NewsItem(BaseModel):
+    """One normalized news story used by the rest of the app."""
+
     id: str
     ticker: str
     title: str

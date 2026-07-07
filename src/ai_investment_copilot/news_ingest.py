@@ -1,6 +1,4 @@
-""""
-This script turns the news to NewsItem
-"""
+"""Load raw news and convert it into NewsItem objects."""
 
 import json
 from datetime import datetime, timezone
@@ -28,7 +26,7 @@ THEME_KEYWORDS = [
 
 
 def load_news(json_path: str | Path) -> list[NewsItem]:
-    """Read mock news JSON, turns to NewsItem list"""
+    """Read fixture JSON news and return NewsItem objects."""
     path = Path(json_path)
     raw_text = path.read_text(encoding="utf-8")
     raw_items = json.loads(raw_text)
@@ -39,7 +37,7 @@ def load_news(json_path: str | Path) -> list[NewsItem]:
 
 
 def load_ticker_news(tickers: list[str], limit_per_ticker: int = 5) -> list[NewsItem]:
-    """Load recent Yahoo Finance news for watchlist tickers."""
+    """Load recent Yahoo Finance news for each ticker in the watchlist."""
     configure_yfinance_cache()
     news_items = []
 
@@ -55,13 +53,13 @@ def load_ticker_news(tickers: list[str], limit_per_ticker: int = 5) -> list[News
 
 
 def _is_blocked_source(source: str) -> bool:
-    """Return True if the news source is on the blocklist."""
+    """Return True when a source should be skipped."""
     source_lower = source.lower()
     return any(blocked in source_lower for blocked in BLOCKED_SOURCES)
 
 
 def yfinance_news_to_news_item(ticker: str, raw_item: dict) -> NewsItem:
-    """Convert one yfinance news item to the internal NewsItem contract."""
+    """Convert one Yahoo Finance news item into the app's NewsItem format."""
     content = raw_item.get("content", raw_item)
     title = content.get("title", "")
     summary = content.get("summary") or content.get("description") or title
@@ -80,7 +78,7 @@ def yfinance_news_to_news_item(ticker: str, raw_item: dict) -> NewsItem:
 
 
 def infer_category(title: str, summary: str) -> str:
-    """Infer the broad category used by the ranker."""
+    """Pick the broad category that best matches the title and summary."""
     text = f"{title} {summary}".lower()
 
     if any(keyword in text for keyword in FINANCIAL_KEYWORDS):
@@ -94,7 +92,7 @@ def infer_category(title: str, summary: str) -> str:
 
 
 def infer_themes(title: str, summary: str) -> list[str]:
-    """Infer themes that match the user's AI infrastructure thesis."""
+    """Pick themes that match the user's AI infrastructure focus."""
     text = f"{title} {summary}".lower()
     themes = [
         theme
@@ -106,11 +104,13 @@ def infer_themes(title: str, summary: str) -> list[str]:
 
 
 def _source(content: dict, raw_item: dict) -> str:
+    """Read the publisher name from a Yahoo Finance news item."""
     provider = content.get("provider", {})
     return provider.get("displayName") or content.get("publisher") or raw_item.get("publisher") or "Yahoo Finance"
 
 
 def _url(content: dict, raw_item: dict) -> str:
+    """Read the best available article URL from a Yahoo Finance news item."""
     canonical_url = content.get("canonicalUrl", {})
     click_url = content.get("clickThroughUrl", {})
     return (
@@ -123,6 +123,7 @@ def _url(content: dict, raw_item: dict) -> str:
 
 
 def _published_at(content: dict, raw_item: dict) -> datetime | str:
+    """Read the publish time, or use the current time as a fallback."""
     if content.get("pubDate"):
         return content["pubDate"]
 
@@ -134,5 +135,5 @@ def _published_at(content: dict, raw_item: dict) -> datetime | str:
 
 
 def _slug(text: str) -> str:
+    """Create a short fallback ID from a title."""
     return "-".join(text.lower().split())[:80] or "news"
-

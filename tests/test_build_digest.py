@@ -1,4 +1,7 @@
-from ai_investment_copilot.build_digest import build_discord_digest
+from ai_investment_copilot.build_digest import (
+    DISCORD_MESSAGE_LIMIT,
+    build_discord_digest_messages,
+)
 from ai_investment_copilot.models.news import NewsItem
 
 
@@ -23,7 +26,7 @@ def make_news_item(
     )
 
 
-def test_build_discord_digest_formats_human_readable_signals():
+def test_build_discord_digest_messages_formats_human_readable_signals():
     item = make_news_item(
         item_id="tsm-ai-chip-deal",
         ticker="TSM",
@@ -33,7 +36,7 @@ def test_build_discord_digest_formats_human_readable_signals():
         summary="Meta is reportedly discussing a large AI chip deal that may shift foundry demand.",
     )
 
-    markdown = build_discord_digest([item], price_moves={"TSM": 2.4})
+    markdown = build_discord_digest_messages([item], price_moves={"TSM": 2.4})[0]
 
     assert markdown.startswith("# Daily Market Signals")
     assert "**TSM**: [Meta Eyes $6.5 Billion Samsung AI Chip Deal](https://example.com/tsm-ai-chip-deal)" in markdown
@@ -44,13 +47,13 @@ def test_build_discord_digest_formats_human_readable_signals():
     assert "keyword" not in markdown
 
 
-def test_build_discord_digest_skips_low_score_and_small_price_moves():
+def test_build_discord_digest_messages_skips_low_score_and_small_price_moves():
     relevant_item = make_news_item(
         item_id="nvda-ai-chip-news",
         ticker="NVDA",
         title="Nvidia AI chip demand remains strong",
-        category="general",
-        themes=["AI chip"],
+        category="contract",
+        themes=["general"],
         summary="Demand for AI chips remains a useful signal for infrastructure growth.",
     )
     noise_item = make_news_item(
@@ -62,10 +65,10 @@ def test_build_discord_digest_skips_low_score_and_small_price_moves():
         summary="Generic market commentary.",
     )
 
-    markdown = build_discord_digest(
+    markdown = build_discord_digest_messages(
         [relevant_item, noise_item],
         price_moves={"NVDA": 1.9, "PLTR": 3.1},
-    )
+    )[0]
 
     assert "Nvidia AI chip demand remains strong" in markdown
     assert "Palantir stock commentary" not in markdown
@@ -73,7 +76,7 @@ def test_build_discord_digest_skips_low_score_and_small_price_moves():
     assert len(markdown) <= 1900
 
 
-def test_build_discord_digest_limits_items_per_ticker():
+def test_build_discord_digest_messages_include_all_items_with_score_at_least_four():
     items = [
         make_news_item(
             item_id=f"tsm-{i}",
@@ -86,6 +89,29 @@ def test_build_discord_digest_limits_items_per_ticker():
         for i in range(4)
     ]
 
-    markdown = build_discord_digest(items)
+    messages = build_discord_digest_messages(items)
+    markdown = "\n".join(messages)
 
-    assert markdown.count("**TSM**") == 2
+    assert markdown.count("**TSM**") == 4
+
+
+def test_build_discord_digest_messages_split_when_message_limit_is_reached():
+    items = [
+        make_news_item(
+            item_id=f"pltr-contract-{i}",
+            ticker="PLTR",
+            title=f"Palantir contract signal {i}",
+            category="contract",
+            themes=["general"],
+            summary=f"Important contract signal {i}. " + ("Details matter. " * 40),
+        )
+        for i in range(8)
+    ]
+
+    messages = build_discord_digest_messages(items)
+    markdown = "\n".join(messages)
+
+    assert len(messages) > 1
+    assert all(len(message) <= DISCORD_MESSAGE_LIMIT for message in messages)
+    for item in items:
+        assert item.title in markdown

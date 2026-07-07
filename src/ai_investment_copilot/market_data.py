@@ -4,7 +4,7 @@ from ai_investment_copilot.yfinance_config import configure_yfinance_cache
 
 
 def get_price_moves(tickers: list[str]) -> dict[str, float]:
-    """Return latest close vs previous close percentage moves by ticker."""
+    """Return each ticker's latest close-to-close percent move."""
     configure_yfinance_cache()
     price_moves = {}
 

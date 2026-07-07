@@ -1,12 +1,17 @@
-"""
-This script ranks all the news and decide which goes to user notifications
-Will use LLM, now is just a draft for the completeness of the pipeline
-"""
+"""Score and sort news by how useful it is for the daily digest."""
+
 from dataclasses import dataclass
+
 from ai_investment_copilot.models.news import NewsItem
 
 @dataclass
 class NewsScore:
+    """Score result for one news item.
+
+    value is the numeric priority. reasons explains why the item received that
+    score, so the digest can show a human-readable signal.
+    """
+
     value: int
     reasons: list[str]
 
@@ -32,7 +37,7 @@ THESIS_RISK_KEYWORDS = [
 ]
 
 def score_news(news: NewsItem) -> NewsScore:
-    """Return a thesis-impact score for one news item."""
+    """Return the priority score and reasons for one news item."""
     score = 0
     reasons = []
     category = news.category.lower()
@@ -59,5 +64,5 @@ def score_news(news: NewsItem) -> NewsScore:
     return NewsScore(value=score, reasons=reasons)
 
 def rank_news(news_items: list[NewsItem]) -> list[NewsItem]:
-    """Rank the news items based on their scores and return the top items"""
+    """Sort news items from highest score to lowest score."""
     return sorted(news_items, key=lambda news: score_news(news).value, reverse=True)
