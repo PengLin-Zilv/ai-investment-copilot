@@ -12,9 +12,6 @@ wheels/
 # skills
 .superpowers/
 
-# graphify
-graphify-out/
-.graphifyignore
 
 # cache
 .pytest_cache/
